@@ -12,8 +12,8 @@ readFile('input-day2.txt', 'utf8', (err, data) => {
         let parts = lines[i].split(' ').map(Number);
         let decreasing = parts[0] > parts[1]
         let increment = checkReport(parts, 1, decreasing);
-        if (increment == 0){
-            safeCounter += testSubReport(parts)
+        if (!increment){
+            safeCounter += testSubReport(parts, increment)
         } else{
             safeCounter += 1;
         }
@@ -44,8 +44,8 @@ readFile('input-day2.txt', 'utf8', (err, data) => {
         return checkReport(parts, (j+1), decreasing)
     }
 
-function testSubReport(parts){
-    for (let i = 0; i < parts.length; i++) {
+function testSubReport(parts, j){
+    for (let i = 0; i<parts.length; i++) {
         let subReport = parts.toSpliced(i, 1);
         let decreasing = subReport[0] > subReport[1]
         if (checkReport(subReport, 1, decreasing))
