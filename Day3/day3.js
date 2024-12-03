@@ -10,22 +10,20 @@ readFile('input-day3.txt', 'utf8', (err, data) => {
     /** @type{RegExp} */
         const regex = /mul\((\d+),(\d+)\)|do\(\)|don't\(\)/g;
 
+    /** @type{Number} */
     let total = 0;
+    /** @type{Boolean} */
     let mult = true;
     lines.forEach(line => {
-        console.log(line);
         let matches;
         while ((matches = regex.exec(line)) !== null) { 
-            console.log(matches)
             if (matches[0].startsWith("mul") && mult){
                 const num1 = parseInt(matches[1], 10); 
                 const num2 = parseInt(matches[2], 10);
                 total += num1 * num2; 
             } else if(matches[0] === "do()"){
-                console.log("do")
                 mult = true;
             } else if (matches[0] === "don't()"){
-                console.log("dont")
                 mult = false;
             }
         }
