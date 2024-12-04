@@ -15,13 +15,16 @@ readFile('input-day4.txt', 'utf8', (err, data) => {
             dynamicArray[i][o] = lines[i][o];
         }
     }
-    let numOfXMAS = 0;
+    let numOfXMAS1 = 0;
+    let numOfXMAS2 = 0;
     for (let i = 0; i<dynamicArray.length; i++){
         for (let j = 0; j<dynamicArray[i].length; j++){
-            numOfXMAS += checkForXmas2(i,j,dynamicArray);
+            numOfXMAS1 += checkForXmas(i,j,dynamicArray);
+            numOfXMAS2 += checkForXmas2(i,j,dynamicArray);
         }
     }
-    console.log(numOfXMAS)
+    console.log(" num of xmas: " + numOfXMAS1)
+    console.log(" num of x-mas: " + numOfXMAS2)
 });
 function checkForXmas(i, j, dynamicArray) {
     let numOfXmas = 0;
@@ -32,7 +35,6 @@ function checkForXmas(i, j, dynamicArray) {
         if (stringFromSlice === 'XMAS' || stringFromSlice === 'SAMX') {
             numOfXmas++;
         }
-        console.log('Horizontal:', stringFromSlice);
     }
 
     if (i <= dynamicArray.length - 4) { 
@@ -43,7 +45,6 @@ function checkForXmas(i, j, dynamicArray) {
         if (downString === 'XMAS' || downString === 'SAMX') {
             numOfXmas++;
         }
-        console.log('Vertical:', downString);
     }
 
 
@@ -55,7 +56,6 @@ function checkForXmas(i, j, dynamicArray) {
         if (diagonalString === 'XMAS' || diagonalString === 'SAMX') {
             numOfXmas++;
         }
-        console.log('Diagonal:', diagonalString);
     }
 
     if (i <= dynamicArray.length - 4 && j >= 3) { 
@@ -81,7 +81,6 @@ function checkForXmas2(i, j, dynamicArray) {
             diagonalString += dynamicArray[i + step][j + step]; 
         }
 
-        console.log('Diagonal Down-Right:', diagonalString);
         if (diagonalString === 'MAS' || diagonalString === 'SAM') {
 
             if (i <= dynamicArray.length - 3 && j + 2 >= 2) {
@@ -95,7 +94,6 @@ function checkForXmas2(i, j, dynamicArray) {
                 if (crossDiagonalString === 'MAS' || crossDiagonalString === 'SAM') {
                     numOfXmas++;
                 }
-                console.log('Diagonal Down-Left:', crossDiagonalString);
             }
         }
     }
