@@ -47,10 +47,10 @@ function checkForXmas(i, j, dynamicArray) {
     }
 
 
-    if (i <= dynamicArray.length - 4 && j <= dynamicArray[i].length - 4) { // Ensure enough rows and columns
+    if (i <= dynamicArray.length - 4 && j <= dynamicArray[i].length - 4) { 
         let diagonalString = '';
         for (let step = 0; step < 4; step++) {
-            diagonalString += dynamicArray[i + step][j + step]; // Increment both row and column
+            diagonalString += dynamicArray[i + step][j + step]; 
         }
         if (diagonalString === 'XMAS' || diagonalString === 'SAMX') {
             numOfXmas++;
