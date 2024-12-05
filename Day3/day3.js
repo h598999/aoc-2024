@@ -9,7 +9,6 @@ readFile('input-day3.txt', 'utf8', (err, data) => {
         const lines = data.trim().split('\n');
     /** @type{RegExp} */
         const regex = /mul\((\d+),(\d+)\)|do\(\)|don't\(\)/g;
-
     /** @type{Number} */
     let total = 0;
     /** @type{Boolean} */

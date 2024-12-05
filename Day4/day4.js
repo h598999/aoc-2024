@@ -15,8 +15,10 @@ readFile('input-day4.txt', 'utf8', (err, data) => {
             dynamicArray[i][o] = lines[i][o];
         }
     }
-    let numOfXMAS1 = 0;
-    let numOfXMAS2 = 0;
+    /** @type{number} */
+        let numOfXMAS1 = 0;
+    /** @type{number} */
+        let numOfXMAS2 = 0;
     for (let i = 0; i<dynamicArray.length; i++){
         for (let j = 0; j<dynamicArray[i].length; j++){
             numOfXMAS1 += checkForXmas(i,j,dynamicArray);
@@ -27,18 +29,21 @@ readFile('input-day4.txt', 'utf8', (err, data) => {
     console.log(" num of x-mas: " + numOfXMAS2)
 });
 function checkForXmas(i, j, dynamicArray) {
-    let numOfXmas = 0;
+    /** @type{number} */
+        let numOfXmas = 0;
 
     if (j <= dynamicArray[i].length - 4) { 
         const rowSlice = dynamicArray[i].slice(j, j + 4); 
-        const stringFromSlice = rowSlice.join('');
+        /** @type{string} */
+            const stringFromSlice = rowSlice.join('');
         if (stringFromSlice === 'XMAS' || stringFromSlice === 'SAMX') {
             numOfXmas++;
         }
     }
 
     if (i <= dynamicArray.length - 4) { 
-        let downString = '';
+        /** @type{string} */
+            let downString = '';
         for (let row = i; row < i + 4; row++) { 
             downString += dynamicArray[row][j];
         }
@@ -46,10 +51,9 @@ function checkForXmas(i, j, dynamicArray) {
             numOfXmas++;
         }
     }
-
-
     if (i <= dynamicArray.length - 4 && j <= dynamicArray[i].length - 4) { 
-        let diagonalString = '';
+        /** @type{string} */
+            let diagonalString = '';
         for (let step = 0; step < 4; step++) {
             diagonalString += dynamicArray[i + step][j + step]; 
         }
@@ -57,7 +61,6 @@ function checkForXmas(i, j, dynamicArray) {
             numOfXmas++;
         }
     }
-
     if (i <= dynamicArray.length - 4 && j >= 3) { 
         let horizontalDownBackString = '';
         for (let step = 0; step < 4; step++) {
@@ -73,16 +76,14 @@ function checkForXmas(i, j, dynamicArray) {
 }
 
 function checkForXmas2(i, j, dynamicArray) {
-    let numOfXmas = 0;
-
+    /** @type{number} */
+        let numOfXmas = 0;
     if (i <= dynamicArray.length - 3 && j <= dynamicArray[i].length - 3) {
         let diagonalString = '';
         for (let step = 0; step < 3; step++) {
             diagonalString += dynamicArray[i + step][j + step]; 
         }
-
         if (diagonalString === 'MAS' || diagonalString === 'SAM') {
-
             if (i <= dynamicArray.length - 3 && j + 2 >= 2) {
                 let crossDiagonalString = '';
                 for (let step = 0; step < 3; step++) {
@@ -90,7 +91,6 @@ function checkForXmas2(i, j, dynamicArray) {
                     const col = j + 2 - step; 
                     crossDiagonalString += dynamicArray[row][col];
                 }
-
                 if (crossDiagonalString === 'MAS' || crossDiagonalString === 'SAM') {
                     numOfXmas++;
                 }
