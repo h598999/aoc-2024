@@ -12,6 +12,9 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
     let rules = new Map();
     let j = 0;
 
+    // This collects the rules in a map<Key, set()> where the key 
+    // holds its related elements, the related elements to a key should all 
+    // be visited before the key for an update to be valid
     for (let i = 0; i < lines.length; i++) {
         if (lines[i] == null || lines[i].trim() === '') {
             isEmpty = true;
@@ -35,7 +38,6 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
             j++;
         }
     }
-    console.log(rules);
     let sum = 0;
     let brokesum = 0;
     for (let i = 0; i<updates.length; i++){
@@ -43,6 +45,10 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
 
         const subMap = new Map();
 
+        //Here we filter out only the rules that are relevant to this update
+        //since a rule only counts if an the element is in the update
+        //for example if 75 has 98, the updated cannot fail because 98 was not visited
+        //if 98 isnt a part of the update
         for (const key of updates[i]) {
             if (rules.has(key)) {
                 const originalSet = rules.get(key);
@@ -56,21 +62,19 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
             }
         }
         let approved = true;
-        console.log("Submap")
-        console.log(subMap)
+        // Go throuhg an update, for every visited value, check its related values
+        // check for every related value that it has been visited
+        // If it has not been visited fix it and add the middle number -> Part 2
+        // If everything checks out add the midlle number of updates[i]
         for (let o = 0; o<updates[i].length; o++){
             visited.add(updates[i][o])
-            if (subMap.has(updates[i][o]) && updates[i]){
+            if (subMap.has(updates[i][o])){
                 const ruleSet = subMap.get(updates[i][o]);
                 let allVisited = true; 
 
                 for (const n of ruleSet) {
                     if (!visited.has(n)) {
-                        console.log('Has not visited ' + n)
-                        console.log('Failed ' + updates[i]);
                         fixOrdering(subMap,updates[i])
-                        console.log('Fixed: ' + updates[i])
-                        console.log("Updates i: " + updates[i][Math.floor((updates[i].length)/2)])
                         brokesum += parseInt(updates[i][Math.floor((updates[i].length)/2)])
                         allVisited = false;
                         approved = false;
@@ -97,12 +101,17 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
  * @param {Array<number>} update
  */
 function fixOrdering(rules, update) {
+    //Goes through the entire array 2D
     for (let i = 0; i < update.length; i++) {
+        //Get the current number we are checking for
         const current = update[i];
+        //Cheks the rules for the current index, the current (key) has to be after all of its values
         if (rules.has(current)) {
             const dependencies = rules.get(current); 
+            //Checks for every dependency if it is in front of it
             for (const dep of dependencies) {
                 const depIndex = update.indexOf(dep);
+                //If it is after the key we place it in front of key value
                 if (depIndex > i) {
                     update.splice(i, 1);
                     update.splice(depIndex, 0, current);

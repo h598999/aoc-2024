@@ -99,8 +99,3 @@ function checkForXmas2(i, j, dynamicArray) {
     }
     return numOfXmas;
 }
-
-
-
-
-
