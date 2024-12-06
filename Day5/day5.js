@@ -1,6 +1,6 @@
 import { readFile } from 'fs';
 
-readFile('input-day5.txt', 'utf8', (err, data) => {
+readFile('./input-day5.txt', 'utf8', (err, data) => {
     if (err) {
         console.error('Error reading the file:', err);
         return;
@@ -88,7 +88,6 @@ readFile('input-day5.txt', 'utf8', (err, data) => {
             }
         }
         if (approved){
-            console.log("Updates i: " + updates[i][Math.floor((updates[i].length)/2)])
             sum += parseInt(updates[i][Math.floor((updates[i].length)/2)])
         }
     }
