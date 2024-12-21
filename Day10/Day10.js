@@ -11,7 +11,8 @@ readFile('./input-day10.txt', 'utf8', (err, data) => {
     let counter = 0;
     potentialTrailheads.forEach(p => {
         let foundNines = new Set();
-        counter += findTrails(lines, p, [], foundNines)
+        findTrails(lines, p, [], foundNines)
+        counter += foundNines.size
         console.log("Trailhead at " + p[0] + " " + p[1] + " has value " + foundNines.size);
     })
     console.log(counter)
@@ -38,14 +39,14 @@ readFile('./input-day10.txt', 'utf8', (err, data) => {
         let counter = 0;
         for (const p of neighbours) {
             if (p[0] < 0 || p[0] >= lines.length || p[1] < 0 || p[1] >= lines[p[0]].length) {
-                continue; // Skip invalid neighbors
+                continue; 
             }
             let valNewPos = parseInt(lines[p[0]][p[1]]);
             if (visited.includes(`${p[0]},${p[1]}`)) {
-                continue; // Skip already visited positions
+                continue;
             }
 
-            let difference = Math.abs(valNewPos - valueCurrentPos);
+            let difference = (valNewPos - valueCurrentPos);
 
             if (difference === 1 && valNewPos === 9) {
                 if (!foundNines.has(`${p[0]},${p[1]}`)){
